@@ -36,7 +36,7 @@
         let Symbol = "?" 
         for (var key in params) {
             i++;
-            if(i>1)
+            if(i>0)
             {
                 Symbol ="&" 
             }
