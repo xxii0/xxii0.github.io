@@ -38,6 +38,7 @@ function redirectUrl(params) {
         i++;
         if (key === "a") {
             key = "/";
+            params[key] = nv[1]; 
         }
         if (i > 1) {
             symbol = "&";
