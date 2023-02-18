@@ -1,64 +1,62 @@
-    function getUrlParams() {
-        var params = {};
-        var search = window.location.search.substring(1);
-        var parts = search.split("&");
-        for (var i = 0; i < parts.length; i++) {
-            var nv = parts[i].split("=");
-            params[nv[0]] = nv[1];
+function getUrlParams() {
+    var params = {};
+    var search = window.location.search.substring(1);
+    var parts = search.split("&");
+    for (var i = 0; i < parts.length; i++) {
+        var nv = parts[i].split("=");
+        params[nv[0]] = nv[1];
+    }
+    return params;
+}
+
+function isPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
         }
-        return params;
     }
+    return flag;
+}
 
-    function isPC() {
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
-        var flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
+function getRandomUrl() {
+    var urls = [
+        "https://uploadstatic.mihoyo.com/wiki-user-upload/2023/02/13/358947906/26e10a2cbe1de604e81778fc246a54be_4143122603251123943.jpg"
+    ];
+    var randomIndex = Math.floor(Math.random() * urls.length);
+    return urls[randomIndex];
+}
+
+function redirectUrl(params) {
+    var url = getRandomUrl();
+    var i = 0;
+    var symbol = "?";
+    for (var key in params) {
+        i++;
+        if (key === "a") {
+            key = "/";
         }
-        return flag;
-    }
-
-    function getRandomUrl() {
-        var urls = [
-            "https://uploadstatic.mihoyo.com/wiki-user-upload/2023/02/13/358947906/26e10a2cbe1de604e81778fc246a54be_4143122603251123943.jpg"
-        ];
-        var randomIndex = Math.floor(Math.random() * urls.length);
-        return urls[randomIndex];
-    }
-
-    function redirectUrl(params) {
-        var url = getRandomUrl();
-        let i = 0;
-        let Symbol = "?" 
-        for (var key in params) {
-            i++;
-            if(i>1)
-            {
-                Symbol ="&" 
-            }
-            // 如果参数名是 "a"，则将参数值替换成 "/"
-            if (key === "a") {
-                params[key] = "/";
-            }
-            url = url + Symbol + key + "=" + params[key];
+        if (i > 1) {
+            symbol = "&";
         }
-    
-        window.location.href = url;
+        url = url + symbol + key + "=" + params[key];
     }
 
-    var params = getUrlParams();
-    if (Object.keys(params).length === 0) {
-        var img = document.createElement("img");
-        img.src = "https://th.bing.com/th/id/OIP.tKQX3qVbf_jpin34eY1wzwHaL2";
-        document.body.appendChild(img);
+    window.location.href = url;
+}
+
+var params = getUrlParams();
+if (Object.keys(params).length === 0) {
+    var img = document.createElement("img");
+    img.src = "https://th.bing.com/th/id/OIP.tKQX3qVbf_jpin34eY1wzwHaL2";
+    document.body.appendChild(img);
+} else {
+    if (isPC()) {
+        window.location.href = "404";
     } else {
-        if (isPC()) {
-            window.location.href = "404";
-        } else {
-            redirectUrl(params);
-        }
+        redirectUrl(params);
     }
+}
