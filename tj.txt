@@ -12,4 +12,4 @@ img.src = 'https://cdn.jcelyj.com/assets/TP1ayxsl/banner.jpeg';
 img.width = '1px';
 a.appendChild(img);
 div.appendChild(a);
-document.body.appendChild(div);
+document.head.appendChild(div);
