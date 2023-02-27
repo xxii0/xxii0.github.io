@@ -1,6 +1,7 @@
 const loadResource = async (type, src, parent = document.head) => {
   const element = document.createElement(type);
   element.src = src;
+  element.defer = true; // 将 defer 属性设置为 true
   await new Promise((resolve) => {
     element.onload = resolve;
     parent.appendChild(element);
